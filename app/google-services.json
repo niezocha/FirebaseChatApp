@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "290927055495",
+    "firebase_url": "https://fir-chatapp-567c1.firebaseio.com",
+    "project_id": "fir-chatapp-567c1",
+    "storage_bucket": "fir-chatapp-567c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290927055495:android:05bd2cd503e8031f",
+        "android_client_info": {
+          "package_name": "com.example.zofiajanicka.firebasechatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290927055495-6apbrf64rrm3sphluufgq2kbcvjkj1us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zofiajanicka.firebasechatapp",
+            "certificate_hash": "58ff18ae6b86ce7463202f55c005011c4f5f770b"
+          }
+        },
+        {
+          "client_id": "290927055495-7flf1fajnt6ggfce2l8jfkcr521pt4uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcrVEcuYswo2r0kLh5kN5F9S2-Z5hczfo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290927055495-7flf1fajnt6ggfce2l8jfkcr521pt4uc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -37,6 +37,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.7'
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile 'com.firebaseui:firebase-ui-auth:2.2.0'
     testCompile 'junit:junit:4.12'
 }
 

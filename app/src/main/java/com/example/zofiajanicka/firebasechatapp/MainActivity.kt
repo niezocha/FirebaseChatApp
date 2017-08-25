@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.ProgressBar
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.SimpleDateFormat
+import org.jetbrains.anko.toast
 import java.util.*
 
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
     val ANONYMOUS = "anonymous"
+    val RC_SIGN_IN = 1
     val DEFAULT_MSG_LENGTH_LIMIT = 1000
 
     private lateinit var listView: ListView
@@ -31,12 +34,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
     private lateinit var list: MutableList<ChatMessage>
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var authListener: FirebaseAuth.AuthStateListener
+    private lateinit var eventListener: ChildEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         userName = ANONYMOUS
+
+        database = FirebaseDatabase.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
+        reference = database.getReference("message")
+
+
         progressBar = progress_bar
         listView = messageRecyclerView
         editText = messageEditText
@@ -44,10 +56,6 @@ class MainActivity : AppCompatActivity() {
 
         list = ArrayList()
         messageAdapter = ChatAdapter(this, R.layout.message_item, list)
-
-
-        database = FirebaseDatabase.getInstance()
-        reference = database.getReference("message")
 
         listView.adapter = messageAdapter
 
@@ -68,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             editText.setText("")
         }
 
-        reference.addChildEventListener(object : ChildEventListener{
+        eventListener = object: ChildEventListener{
             override fun onCancelled(dataSnapshot: DatabaseError) {}
             override fun onChildMoved(dataSnapshot: DataSnapshot, p1: String?) {}
             override fun onChildChanged(dataSnapshot: DataSnapshot, p1: String?) {}
@@ -77,24 +85,45 @@ class MainActivity : AppCompatActivity() {
                 messageAdapter.add(message)
             }
             override fun onChildRemoved(p0: DataSnapshot?) {}
+        }
 
-        })
+        reference.addChildEventListener(eventListener)
 
 
-//        reference.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                val message = dataSnapshot.getValue(ChatMessage::class.java)
-//                if (message != null) {
-//                    list.add(message)
-//                    messageAdapter.notifyDataSetChanged()
-//                }
-//                Log.d(TAG, "Value is: " + message)
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.w(TAG, "Failed to read value.", error.toException())
-//            }
-//        })
+        authListener = object: FirebaseAuth.AuthStateListener {
+            override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
+                var user: FirebaseUser? = firebaseAuth.currentUser
+
+                if(user != null) {
+                    toast("logowanie powiodło się")
+                } else{
+
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(false)
+                                    .build(),
+                            RC_SIGN_IN)
+                }
+            }
+        }
+
 
     }
+
+
+    override fun onPause() {
+        super.onPause()
+        firebaseAuth.removeAuthStateListener(authListener)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAuth.addAuthStateListener(authListener)
+
+    }
+
+
+
 }

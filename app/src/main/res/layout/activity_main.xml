@@ -11,16 +11,16 @@
     android:paddingTop="16dp"
     tools:context="com.example.zofiajanicka.firebasechatapp.MainActivity">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linearLayout"
         android:divider="@android:color/transparent"
         android:stackFromBottom="true"
         android:dividerHeight="8dp"
         android:transcriptMode="alwaysScroll"
-        tools:listitem="@layout/message_item" />
+        tools:listitem="@layout/item_message_send" />
 
 
     <LinearLayout
@@ -50,11 +50,4 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
 </RelativeLayout>

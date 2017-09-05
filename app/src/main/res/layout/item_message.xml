@@ -4,24 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="right"
+    android:gravity="end"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
 
     <TextView
         android:id="@+id/tv_date"
-        tools:text="12/04/17, 10:34"
+        tools:text="12/05/17, 10:30"
         android:textSize="12sp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end" />
+        android:layout_height="wrap_content" />
 
     <me.himanshusoni.chatmessageview.ChatMessageView
         android:id="@+id/chat_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cmv_backgroundColor="#557ABABA"
+        app:cmv_backgroundColor="#557A7ABA"
         app:cmv_backgroundColorPressed="#55BABABA"
+        app:cmv_arrowPosition="bottom"
+        app:cmv_arrowMargin="0dp"
         app:cmv_showArrow="false"
         app:cmv_cornerRadius="3dp">
 
@@ -34,13 +38,5 @@
             android:layout_height="wrap_content" />
 
     </me.himanshusoni.chatmessageview.ChatMessageView>
-
-    <TextView
-        android:id="@+id/tv_user"
-        tools:text="name"
-        android:textSize="12sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end" />
 
 </LinearLayout>
